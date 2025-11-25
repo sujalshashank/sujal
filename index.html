@@ -1,303 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome - 3D Carousel</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  <title>Sujal - 3D carousel</title>
+  <link rel="stylesheet" href="./style.css">
 
-    body {
-      height: 100vh;
-      overflow: hidden;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Arial', sans-serif;
-      position: relative;
-    }
-
-    /* Animated background particles */
-    .particles {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: 1;
-    }
-
-    .particle {
-      position: absolute;
-      background: rgba(255, 255, 255, 0.3);
-      border-radius: 50%;
-      animation: float 15s infinite ease-in-out;
-    }
-
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0) translateX(0) rotate(0deg);
-        opacity: 0;
-      }
-      10% {
-        opacity: 1;
-      }
-      90% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-100vh) translateX(50px) rotate(360deg);
-        opacity: 0;
-      }
-    }
-
-    /* Main container */
-    .home-container {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      color: white;
-    }
-
-    /* Title animation */
-    .title {
-      font-size: 4rem;
-      font-weight: bold;
-      margin-bottom: 1rem;
-      background: linear-gradient(45deg, #fff, #f0f0f0, #fff);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: shimmer 3s ease-in-out infinite, fadeInDown 1s ease-out;
-      text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
-    }
-
-    @keyframes shimmer {
-      0%, 100% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-    }
-
-    @keyframes fadeInDown {
-      from {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .subtitle {
-      font-size: 1.5rem;
-      margin-bottom: 3rem;
-      opacity: 0.9;
-      animation: fadeInUp 1s ease-out 0.3s both;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Click Me Button */
-    .click-me-btn {
-      padding: 1.2rem 3rem;
-      font-size: 1.3rem;
-      font-weight: bold;
-      color: white;
-      background: linear-gradient(45deg, #ff6b6b, #ee5a6f);
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s ease;
-      animation: pulse 2s ease-in-out infinite, fadeInScale 1s ease-out 0.6s both;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 107, 107, 0.5);
-    }
-
-    @keyframes pulse {
-      0%, 100% {
-        transform: scale(1);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 107, 107, 0.5);
-      }
-      50% {
-        transform: scale(1.05);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 107, 107, 0.8);
-      }
-    }
-
-    @keyframes fadeInScale {
-      from {
-        opacity: 0;
-        transform: scale(0.8);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    .click-me-btn::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.3);
-      transform: translate(-50%, -50%);
-      transition: width 0.6s, height 0.6s;
-    }
-
-    .click-me-btn:hover::before {
-      width: 300px;
-      height: 300px;
-    }
-
-    .click-me-btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 40px rgba(255, 107, 107, 1);
-    }
-
-    .click-me-btn:active {
-      transform: scale(0.95);
-    }
-
-    .click-me-btn span {
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Heart animation */
-    .hearts {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: 1;
-    }
-
-    .heart {
-      position: absolute;
-      font-size: 2rem;
-      opacity: 0;
-      animation: heartFloat 4s infinite ease-in-out;
-    }
-
-    @keyframes heartFloat {
-      0% {
-        opacity: 0;
-        transform: translateY(0) scale(0);
-      }
-      10% {
-        opacity: 1;
-      }
-      90% {
-        opacity: 1;
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(-100vh) scale(1.5);
-      }
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .title {
-        font-size: 2.5rem;
-      }
-      .subtitle {
-        font-size: 1.2rem;
-      }
-      .click-me-btn {
-        padding: 1rem 2rem;
-        font-size: 1.1rem;
-      }
-    }
-  </style>
 </head>
 <body>
-  <div class="particles" id="particles"></div>
-  <div class="hearts" id="hearts"></div>
-  
-  <div class="home-container">
-    <h1 class="title">Hey Bachaaa❤️💕</h1>
-    <p class="subtitle">Experience the Magic ✨</p>
-    <button class="click-me-btn" id="clickBtn">
-      <span>Click Me</span>
-    </button>
+<!-- partial:index.partial.html -->
+<div id="drag-container">
+  <div id="spin-container">
+
+
+
+
+
+
+
+    <img src="img/1.jpg" alt="">
+    <img src="img/2.jpg" alt="">
+    <img src="img/3.jpeg" alt="">
+    <img src="img/4.jpg" alt="">
+    <img src="img/5.jpg" alt="">
+    <img src="img/6.jpg" alt="">
+
+
+    <!-- Example add video  -->
+    <video controls autoplay="autoplay" loop muted>
+      <source src="img/11.mp4" type="video/mp4">
+    </video>
+
+    <!-- Text at center of ground -->
+    <p>I Love You Mera Bachaaa❤️💕</p>
   </div>
+  <div id="ground"></div>
+</div>
 
-  <!-- Hidden audio for autoplay -->
-  <audio id="home-audio" src="song.mp3" loop></audio>
+<div id="music-container"></div>
 
-  <script>
-    // Create animated particles
-    const particlesContainer = document.getElementById('particles');
-    for (let i = 0; i < 20; i++) {
-      const particle = document.createElement('div');
-      particle.className = 'particle';
-      const size = Math.random() * 10 + 5;
-      particle.style.width = size + 'px';
-      particle.style.height = size + 'px';
-      particle.style.left = Math.random() * 100 + '%';
-      particle.style.bottom = '-10px';
-      particle.style.animationDelay = Math.random() * 15 + 's';
-      particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-      particlesContainer.appendChild(particle);
-    }
 
-    // Create floating hearts
-    const heartsContainer = document.getElementById('hearts');
-    const heartEmojis = ['❤️', '💕', '💖', '💗', '💝'];
-    for (let i = 0; i < 10; i++) {
-      const heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
-      heart.style.left = Math.random() * 100 + '%';
-      heart.style.bottom = '-10px';
-      heart.style.animationDelay = Math.random() * 4 + 's';
-      heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
-      heartsContainer.appendChild(heart);
-    }
 
-    // Handle click button
-    const clickBtn = document.getElementById('clickBtn');
-    const audio = document.getElementById('home-audio');
+<!-- github corner (https://github.com/tholman/github-corners) -->
+<style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<!-- partial -->
+  <script  src="./script.js"></script>
 
-    clickBtn.addEventListener('click', function() {
-      // Play audio
-      audio.play().then(() => {
-        // Store flag to indicate audio should autoplay in carousel
-        localStorage.setItem('audioShouldPlay', 'true');
-        
-        // Redirect to carousel
-        window.location.href = 'index.html';
-      }).catch(error => {
-        console.log('Audio autoplay blocked, redirecting anyway');
-        localStorage.setItem('audioShouldPlay', 'true');
-        window.location.href = 'index.html';
-      });
-    });
-  </script>
 </body>
-</html>
 
